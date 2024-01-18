@@ -13,7 +13,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoice = Invoice::find(1);
+        dd ($invoice->customers);
     }
 
     /**

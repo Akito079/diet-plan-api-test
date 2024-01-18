@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MealController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\MealController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('/customers',CustomerController::class);
 Route::apiResource('/invoices',InvoiceController::class);
 Route::apiResource('/meals',MealController::class);
+Route::apiResource('/meals',MealController::class);
+Route::apiResource('/reviews',ReviewController::class);

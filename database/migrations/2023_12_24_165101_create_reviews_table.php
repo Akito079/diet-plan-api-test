@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('meal_id');
             $table->integer('customer_id');
             $table->longText('message');
+            $table->integer('rating');
             $table->timestamps();
         });
     }

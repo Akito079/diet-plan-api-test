@@ -19,6 +19,7 @@ class MealController extends Controller
      */
     public function index(Request $request)
     {
+
         $filter = new MealsFilter();
         $mealFilter = $filter->transform($request);
         $meal = Meal::where($mealFilter);
@@ -26,7 +27,8 @@ class MealController extends Controller
         if ($includeReviews) {
             $meal = $meal->with('reviews');
         }
-        return new MealCollection($meal->paginate(10)->appends($request->query()));
+
+        return new MealCollection($meal->paginate()->appends($request->query()));
     }
     /**
      * Store a newly created resource in storage.
@@ -51,8 +53,9 @@ class MealController extends Controller
     {
         $includeReviews = request()->query('includeReviews');
         if ($includeReviews) {
-            return new MealResource($meal->with('reviews'));
+            return new MealResource($meal->loadMissing('reviews'));
         }
+
         return new MealResource($meal);
     }
     /**

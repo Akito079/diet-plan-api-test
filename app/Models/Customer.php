@@ -6,6 +6,7 @@ use App\Models\Review;
 use App\Models\Invoice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -16,10 +17,12 @@ class Customer extends Model
         'address'.
         'phone',
     ];
-    public function invoices(){
+    public function invoices():HasMany
+    {
         return $this->hasMany(Invoice::class);
     }
-    public function reviews(){
+    public function reviews():HasMany
+    {
         return $this->hasMany(Review::class);
     }
 }

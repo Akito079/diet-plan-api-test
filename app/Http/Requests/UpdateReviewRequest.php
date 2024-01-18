@@ -20,9 +20,29 @@ class UpdateReviewRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {   $method = $this->method();
+
+       if($method == 'PUT'){
         return [
-            //
+            'customer_id' => ['required'],
+            'meal_id' => ['required'],
+            'message' => ['required','min:5'],
+            'raing' => ['required'],
         ];
+       }else{
+        return [
+            'customerId' => ['sometimes','required'],
+            'mealId' => ['sometimes','required'],
+            'message' => ['sometimes','required','min:5'],
+            'raing' => ['sometimes','required'],
+        ];
+       }
+
+    }
+    protected function prepareForValidation(){
+        $this->merge([
+            'customer_id' => $this->customerId,
+            'meal_id' => $this->mealId,
+        ]);
     }
 }

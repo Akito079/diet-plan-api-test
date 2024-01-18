@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
 use App\Models\Review;
+use Illuminate\Http\Request;
+use App\Http\Resources\ReviewCollection;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 
@@ -11,9 +14,13 @@ class ReviewController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request){
+
+        $includeCustomer = $request->query('includeCustomer');
+        if($includeCustomer){
+            return new ReviewCollection(Review::with('customers')->paginate()->appends($request->query()));
+        }
+        return new ReviewCollection(Review::paginate()->appends($request->query()));
     }
 
     /**
@@ -29,7 +36,7 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        return new ReviewResource(Review::create($request->all()));
     }
 
     /**
@@ -37,7 +44,7 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        return new ReviewResource($review);
     }
 
     /**

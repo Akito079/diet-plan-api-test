@@ -24,16 +24,10 @@ class StoreMealRequest extends FormRequest
         return [
            'name' => ['required','min:5'],
            'description' => ['required','min:10'],
-           'tags' => ['min:2'],
            'image' => ['required','mimes:png,jpeg,jpg,webp','file'],
            'price' => ['required'],
-           'reviewCount' => ['integer'],
            'rating' => ['integer'],
         ];
     }
-    protected function prepareForValidation(){
-        $this->merge([
-            'review_count' => $this->reviewCount,
-        ]);
-    }
+  
 }

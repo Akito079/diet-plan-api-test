@@ -24,33 +24,22 @@ class UpdateMealRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-       if($method == 'PUT'){
-        return [
-            'name' =>['required','min:5',  Rule::unique('meals','name')->ignore($this->meal)],
-            'description' => ['required','min:5'],
-            'tags' =>  ['min:5'],
-            'image' =>[ 'mimes:png,jpeg,jpg,webp','file'],
-            'price' => ['required'],
-            'reviewCount' => ['integer'],
-            'rating' => ['integer'],
-        ];
-       }else{
-        return [
-            'name' =>['sometimes','required','min:5','unique:meals,name' ],
-            'description' => ['sometimes','required','min:5'],
-            'tags' =>  ['sometimes','min:5'],
-            'image' =>[ 'sometimes','mimes:png,jpeg,jpg,webp','file'],
-            'price' => ['sometimes','required'],
-            'reviewCount' => ['sometimes','integer'],
-            'rating' => ['sometimes','integer'],
-        ];
-       }
-    }
-    protected function prepareForValidation(){
-        if($this->reviewCount){
-            $this->merge([
-                'review_count' => $this->reviewCount,
-            ]);
+        if ($method == 'PUT') {
+            return [
+                'name' => ['required', 'min:5',  Rule::unique('meals', 'name')->ignore($this->meal)],
+                'description' => ['required', 'min:5'],
+                'image' => ['mimes:png,jpeg,jpg,webp', 'file'],
+                'price' => ['required'],
+                'rating' => ['integer'],
+            ];
+        } else {
+            return [
+                'name' => ['sometimes', 'required', 'min:5', 'unique:meals,name'],
+                'description' => ['sometimes', 'required', 'min:5'],
+                'image' => ['sometimes', 'mimes:png,jpeg,jpg,webp', 'file'],
+                'price' => ['sometimes', 'required'],
+                'rating' => ['sometimes', 'integer'],
+            ];
         }
     }
 }
